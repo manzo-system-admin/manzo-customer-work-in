@@ -134,7 +134,7 @@
 
     setLoading(true);
 
-    fetch("/v1/survey/submit", {
+    fetch("https://manzo-backend-dev-614613248623.asia-southeast1.run.app/v1/survey/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)

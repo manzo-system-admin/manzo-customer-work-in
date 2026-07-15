@@ -1,136 +1,303 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="th">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>แบบสอบถามความพึงพอใจ</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chonburi&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>แบบสอบถามความพึงพอใจ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chonburi&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="grain"></div>
 
-<div class="grain"></div>
+    <main class="stage">
+      <form class="ticket" id="surveyForm" novalidate>
+        <div class="ticket__topbar">
+          <div class="lang-toggle" role="group" aria-label="Language / ภาษา">
+            <button type="button" class="lang-toggle__btn" data-lang="th">
+              ไทย
+            </button>
+            <button type="button" class="lang-toggle__btn" data-lang="en">
+              EN
+            </button>
+          </div>
+        </div>
 
-<main class="stage">
-  <form class="ticket" id="surveyForm" novalidate>
+        <!-- Header -->
+        <header class="ticket__header">
+          <h1 class="ticket__title" data-i18n-html="title">
+            คุณพึงพอใจกับบริการของเรามากแค่ไหน?
+          </h1>
+        </header>
 
-    <!-- Header -->
-    <header class="ticket__header">
-      <span class="ticket__eyebrow">แบบสอบถามลูกค้า</span>
-      <h1 class="ticket__title">ท่านพึงพอใจ<br>กับบริการของเรามากแค่ไหน?</h1>
-    </header>
+        <!-- Reassurance banner -->
+        <div class="assurance" role="note">
+          <div class="assurance__chip">
+            <svg viewBox="0 0 24 24" class="assurance__icon" aria-hidden="true">
+              <circle
+                cx="12"
+                cy="12"
+                r="9"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path
+                d="M12 7v5l3.5 2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span data-i18n-html="assurance1"
+              >ใช้เวลาไม่เกิน <strong>30 วินาที</strong></span
+            >
+          </div>
+          <div class="assurance__chip">
+            <svg viewBox="0 0 24 24" class="assurance__icon" aria-hidden="true">
+              <rect
+                x="5"
+                y="10.5"
+                width="14"
+                height="9.5"
+                rx="1.6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path
+                d="M8 10.5V7.5a4 4 0 0 1 8 0v3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span data-i18n-html="assurance2"
+              >ข้อมูลของคุณ <strong>เก็บเป็นความลับ</strong></span
+            >
+          </div>
+        </div>
 
-    <!-- Reassurance banner -->
-    <div class="assurance" role="note">
-      <div class="assurance__chip">
-        <svg viewBox="0 0 24 24" class="assurance__icon" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <span>ใช้เวลาไม่เกิน <strong>30 วินาที</strong></span>
+        <div class="perforation" aria-hidden="true"></div>
+
+        <!-- Missing service point warning -->
+        <div class="notice notice--warn" id="spidWarning" hidden>
+          <p data-i18n="spidWarning">
+            ไม่พบข้อมูลจุดบริการ กรุณาสแกน QR Code ที่จุดบริการอีกครั้ง
+          </p>
+        </div>
+
+        <div class="ticket__body" id="formBody">
+          <!-- Live mood summary -->
+          <section class="mood-summary" aria-live="polite">
+            <div class="reaction" id="reactionFace" aria-hidden="true">🤔</div>
+            <p class="reaction-text" id="reactionText" data-i18n="moodDefault">
+              เลื่อนดาวเพื่อให้คะแนน
+            </p>
+          </section>
+
+          <!-- Rating rows -->
+          <section class="ratings">
+            <div class="rating-row" data-rating="speed_rating">
+              <div class="rating-row__head">
+                <span class="rating-row__num">1</span>
+                <span class="rating-row__label"
+                  ><span data-i18n="ratingSpeed">ความรวดเร็วในการให้บริการ</span
+                  ><span class="required-dot" aria-hidden="true">*</span></span
+                >
+              </div>
+              <div class="star-slider">
+                <div class="star-slider__stars" aria-hidden="true">
+                  <span class="star"></span><span class="star"></span
+                  ><span class="star"></span><span class="star"></span
+                  ><span class="star"></span>
+                </div>
+                <input
+                  type="range"
+                  class="star-slider__input"
+                  autocomplete="off"
+                  min="0"
+                  max="5"
+                  step="1"
+                  value="0"
+                  name="speed_rating"
+                  aria-label="ความรวดเร็วในการให้บริการ"
+                  aria-valuetext="ยังไม่ให้คะแนน"
+                />
+                <span class="star-slider__value">ยังไม่ให้คะแนน</span>
+              </div>
+            </div>
+
+            <div class="rating-row" data-rating="staff_rating">
+              <div class="rating-row__head">
+                <span class="rating-row__num">2</span>
+                <span class="rating-row__label"
+                  ><span data-i18n="ratingStaff">ความสุภาพของพนักงาน</span
+                  ><span class="required-dot" aria-hidden="true">*</span></span
+                >
+              </div>
+              <div class="star-slider">
+                <div class="star-slider__stars" aria-hidden="true">
+                  <span class="star"></span><span class="star"></span
+                  ><span class="star"></span><span class="star"></span
+                  ><span class="star"></span>
+                </div>
+                <input
+                  type="range"
+                  class="star-slider__input"
+                  autocomplete="off"
+                  min="0"
+                  max="5"
+                  step="1"
+                  value="0"
+                  name="staff_rating"
+                  aria-label="ความสุภาพของพนักงาน"
+                  aria-valuetext="ยังไม่ให้คะแนน"
+                />
+                <span class="star-slider__value">ยังไม่ให้คะแนน</span>
+              </div>
+            </div>
+
+            <div class="rating-row" data-rating="cleanliness_rating">
+              <div class="rating-row__head">
+                <span class="rating-row__num">3</span>
+                <span class="rating-row__label"
+                  ><span data-i18n="ratingCleanliness">ความสะอาดของสถานที่</span
+                  ><span class="required-dot" aria-hidden="true">*</span></span
+                >
+              </div>
+              <div class="star-slider">
+                <div class="star-slider__stars" aria-hidden="true">
+                  <span class="star"></span><span class="star"></span
+                  ><span class="star"></span><span class="star"></span
+                  ><span class="star"></span>
+                </div>
+                <input
+                  type="range"
+                  class="star-slider__input"
+                  autocomplete="off"
+                  min="0"
+                  max="5"
+                  step="1"
+                  value="0"
+                  name="cleanliness_rating"
+                  aria-label="ความสะอาดของสถานที่"
+                  aria-valuetext="ยังไม่ให้คะแนน"
+                />
+                <span class="star-slider__value">ยังไม่ให้คะแนน</span>
+              </div>
+            </div>
+
+            <div class="rating-row" data-rating="overall_rating">
+              <div class="rating-row__head">
+                <span class="rating-row__num">4</span>
+                <span class="rating-row__label"
+                  ><span data-i18n="ratingOverall">ความพึงพอใจโดยรวม</span
+                  ><span class="required-dot" aria-hidden="true">*</span></span
+                >
+              </div>
+              <div class="star-slider">
+                <div class="star-slider__stars" aria-hidden="true">
+                  <span class="star"></span><span class="star"></span
+                  ><span class="star"></span><span class="star"></span
+                  ><span class="star"></span>
+                </div>
+                <input
+                  type="range"
+                  class="star-slider__input"
+                  autocomplete="off"
+                  min="0"
+                  max="5"
+                  step="1"
+                  value="0"
+                  name="overall_rating"
+                  aria-label="ความพึงพอใจโดยรวม"
+                  aria-valuetext="ยังไม่ให้คะแนน"
+                />
+                <span class="star-slider__value">ยังไม่ให้คะแนน</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Conditional follow-up (any rating <= 2) -->
+          <section class="followup" id="followupSection" hidden>
+            <div class="followup__inner">
+              <p class="followup__title" data-i18n="followupTitle">
+                ต้องขออภัยในความไม่สะดวก
+              </p>
+              <p class="followup__desc" data-i18n="followupDesc">
+                ช่วยเล่าให้เราฟังเพิ่มเติมได้ไหม
+                เพื่อให้เราปรับปรุงบริการให้ดีขึ้น
+              </p>
+
+              <label class="field" for="comment">
+                <span class="field-label"
+                  ><span data-i18n="commentLabel">รายละเอียดเพิ่มเติม</span
+                  ><span class="required-dot" aria-hidden="true">*</span></span
+                >
+                <textarea
+                  id="comment"
+                  name="comment"
+                  rows="3"
+                  data-i18n-placeholder="commentPlaceholder"
+                  placeholder="ช่วยเล่าให้เราฟังเพิ่มเติมได้ไหม เพื่อให้เราปรับปรุงบริการให้ดีขึ้น"
+                ></textarea>
+              </label>
+
+              <label class="field" for="phone_number">
+                <span class="field-label"
+                  ><span data-i18n="phoneLabel">เบอร์ติดต่อกลับ</span
+                  ><span class="required-dot" aria-hidden="true">*</span></span
+                >
+                <input
+                  type="tel"
+                  id="phone_number"
+                  name="phone_number"
+                  data-i18n-placeholder="phonePlaceholder"
+                  placeholder="08X-XXX-XXXX"
+                  inputmode="tel"
+                  autocomplete="tel"
+                />
+              </label>
+            </div>
+          </section>
+
+          <p class="error-text" id="formError" role="alert" hidden></p>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="submit-btn__label" data-i18n="submit"
+              >ส่งแบบประเมิน</span
+            >
+            <span class="submit-btn__spinner" aria-hidden="true"></span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Success state -->
+      <div class="thankyou" id="thankyouView" hidden>
+        <div class="stamp">
+          <img
+            class="stamp__logo"
+            src="assets/logo.jpg"
+            alt="Rajthanee Hospital"
+          />
+        </div>
+        <h2 class="thankyou__title" data-i18n-html="thankyou">
+          ได้รับคำตอบของคุณแล้ว <br />ขอบคุณที่สละเวลา
+        </h2>
       </div>
-      <div class="assurance__chip">
-        <svg viewBox="0 0 24 24" class="assurance__icon" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <span>ข้อมูลของท่าน <strong>เก็บเป็นความลับ</strong></span>
-      </div>
-    </div>
+    </main>
 
-    <div class="perforation" aria-hidden="true"></div>
-
-    <!-- Missing service point warning -->
-    <div class="notice notice--warn" id="spidWarning" hidden>
-      <p>ไม่พบข้อมูลจุดบริการ กรุณาสแกน QR Code ที่จุดบริการอีกครั้ง</p>
-    </div>
-
-    <div class="ticket__body" id="formBody">
-
-      <!-- Overall rating hero -->
-      <section class="hero-rating" data-required-group="overall_rating">
-        <p class="field-label">ความพึงพอใจโดยรวม</p>
-        <div class="reaction" id="reactionFace" aria-hidden="true">🤔</div>
-        <p class="reaction-text" id="reactionText">แตะดาวเพื่อให้คะแนน</p>
-        <div class="stars stars--lg" role="radiogroup" aria-label="ความพึงพอใจโดยรวม" data-rating="overall_rating">
-          <input type="radio" id="overall_5" name="overall_rating" value="5"><label for="overall_5" title="5 ดาว">★</label>
-          <input type="radio" id="overall_4" name="overall_rating" value="4"><label for="overall_4" title="4 ดาว">★</label>
-          <input type="radio" id="overall_3" name="overall_rating" value="3"><label for="overall_3" title="3 ดาว">★</label>
-          <input type="radio" id="overall_2" name="overall_rating" value="2"><label for="overall_2" title="2 ดาว">★</label>
-          <input type="radio" id="overall_1" name="overall_rating" value="1"><label for="overall_1" title="1 ดาว">★</label>
-        </div>
-      </section>
-
-      <!-- Sub ratings -->
-      <section class="sub-ratings">
-        <div class="rating-row" data-required-group="speed_rating">
-          <span class="rating-row__label">ความรวดเร็วในการให้บริการ</span>
-          <div class="stars" role="radiogroup" aria-label="ความรวดเร็วในการให้บริการ" data-rating="speed_rating">
-            <input type="radio" id="speed_5" name="speed_rating" value="5"><label for="speed_5" title="5 ดาว">★</label>
-            <input type="radio" id="speed_4" name="speed_rating" value="4"><label for="speed_4" title="4 ดาว">★</label>
-            <input type="radio" id="speed_3" name="speed_rating" value="3"><label for="speed_3" title="3 ดาว">★</label>
-            <input type="radio" id="speed_2" name="speed_rating" value="2"><label for="speed_2" title="2 ดาว">★</label>
-            <input type="radio" id="speed_1" name="speed_rating" value="1"><label for="speed_1" title="1 ดาว">★</label>
-          </div>
-        </div>
-
-        <div class="rating-row" data-required-group="staff_rating">
-          <span class="rating-row__label">ความสุภาพของพนักงาน</span>
-          <div class="stars" role="radiogroup" aria-label="ความสุภาพของพนักงาน" data-rating="staff_rating">
-            <input type="radio" id="staff_5" name="staff_rating" value="5"><label for="staff_5" title="5 ดาว">★</label>
-            <input type="radio" id="staff_4" name="staff_rating" value="4"><label for="staff_4" title="4 ดาว">★</label>
-            <input type="radio" id="staff_3" name="staff_rating" value="3"><label for="staff_3" title="3 ดาว">★</label>
-            <input type="radio" id="staff_2" name="staff_rating" value="2"><label for="staff_2" title="2 ดาว">★</label>
-            <input type="radio" id="staff_1" name="staff_rating" value="1"><label for="staff_1" title="1 ดาว">★</label>
-          </div>
-        </div>
-
-        <div class="rating-row" data-required-group="cleanliness_rating">
-          <span class="rating-row__label">ความสะอาดของสถานที่</span>
-          <div class="stars" role="radiogroup" aria-label="ความสะอาดของสถานที่" data-rating="cleanliness_rating">
-            <input type="radio" id="clean_5" name="cleanliness_rating" value="5"><label for="clean_5" title="5 ดาว">★</label>
-            <input type="radio" id="clean_4" name="cleanliness_rating" value="4"><label for="clean_4" title="4 ดาว">★</label>
-            <input type="radio" id="clean_3" name="cleanliness_rating" value="3"><label for="clean_3" title="3 ดาว">★</label>
-            <input type="radio" id="clean_2" name="cleanliness_rating" value="2"><label for="clean_2" title="2 ดาว">★</label>
-            <input type="radio" id="clean_1" name="cleanliness_rating" value="1"><label for="clean_1" title="1 ดาว">★</label>
-          </div>
-        </div>
-      </section>
-
-      <!-- Conditional follow-up (overall_rating <= 2) -->
-      <section class="followup" id="followupSection" hidden>
-        <div class="followup__inner">
-          <p class="followup__title">ต้องขออภัยในความไม่สะดวก</p>
-          <p class="followup__desc">ช่วยเล่าให้เราฟังเพิ่มเติมได้ไหม เพื่อให้เราปรับปรุงบริการให้ดีขึ้น</p>
-
-          <label class="field" for="comment">
-            <span class="field-label">รายละเอียดเพิ่มเติม</span>
-            <textarea id="comment" name="comment" rows="3" placeholder="เล่าให้เราฟังหน่อยว่าเกิดอะไรขึ้น..."></textarea>
-          </label>
-
-          <label class="field" for="phone_number">
-            <span class="field-label">เบอร์ติดต่อกลับ</span>
-            <input type="tel" id="phone_number" name="phone_number" placeholder="08X-XXX-XXXX" inputmode="tel" autocomplete="tel">
-          </label>
-        </div>
-      </section>
-
-      <p class="error-text" id="formError" role="alert" hidden></p>
-
-      <button type="submit" class="submit-btn" id="submitBtn">
-        <span class="submit-btn__label">ส่งแบบประเมิน</span>
-        <span class="submit-btn__spinner" aria-hidden="true"></span>
-      </button>
-    </div>
-  </form>
-
-  <!-- Success state -->
-  <div class="thankyou" id="thankyouView" hidden>
-    <div class="stamp">
-      <span class="stamp__ring"></span>
-      <span class="stamp__text">ขอบคุณ</span>
-    </div>
-    <h2 class="thankyou__title">ได้รับคำตอบของท่านแล้ว</h2>
-    <p class="thankyou__desc">ความคิดเห็นของท่านมีค่ากับเรามาก<br>ขอบคุณที่สละเวลาครับ/ค่ะ</p>
-  </div>
-</main>
-
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

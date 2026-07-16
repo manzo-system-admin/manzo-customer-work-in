@@ -50,7 +50,7 @@
     },
     en: {
       pageTitle: "Customer Satisfaction Survey",
-      title: "How satisfied are you<br>with our service?",
+      title: "How satisfied are you<br>with our services?",
       assurance1: "Takes less than <strong>30 seconds</strong>",
       assurance2: "Your information is <strong>kept confidential</strong>",
       spidWarning: "Service point not found. Please scan the QR code again.",
